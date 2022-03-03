@@ -7,10 +7,10 @@ const { paginateQueryParams, paginate } = require("../../helper/pagination.helpe
 /* List of items */
 const index = async (req, res, next) => {
     try {
-        const { limit, page } = paginateQueryParams(req)
+        const { limit, page } = paginateQueryParams(req.query)
 
         const totalItems = await Category.countDocuments()
-        const results = await Category.find({}, { journals: 0 })
+        const results = await Category.find({}, { publications: 0 })
             .sort({ _id: -1 })
             .skip((parseInt(page) * parseInt(limit)) - parseInt(limit))
             .limit(parseInt(limit))
@@ -36,7 +36,7 @@ const show = async (req, res, next) => {
 
         await isMongooseId(id)
 
-        const result = await Category.findById(id, { journals: 0 })
+        const result = await Category.findById(id, { publications: 0 })
 
         res.status(200).json({
             status: true,
@@ -164,7 +164,7 @@ const destroy = async (req, res, next) => {
             })
         }
 
-        if (isAvailable.journals && isAvailable.journals.length > 0) {
+        if (isAvailable.publications && isAvailable.publications.length > 0) {
             return res.status(408).json({
                 status: false,
                 errors: {

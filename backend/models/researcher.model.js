@@ -88,8 +88,8 @@ const researcherSchema = new Schema({
         },
         onGoing: {
             type: Boolean,
-            default: null,
-            enum: [null, true, false]
+            default: true,
+            enum: [true, false]
         }
     }],
     otherProfiles: [{
@@ -104,9 +104,9 @@ const researcherSchema = new Schema({
             default: null
         }
     }],
-    journals: [{
+    publications: [{
         type: Schema.Types.ObjectId,
-        ref: "Journal",
+        ref: "Publication",
         default: null
     }]
 }, {

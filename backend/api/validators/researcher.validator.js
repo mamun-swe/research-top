@@ -61,12 +61,6 @@ const profileUpdate = data => {
 
                 if (Object.keys(eduErrorObj).length > 0) educationErrors.push(eduErrorObj)
             }
-        } else {
-            educationErrors.push({
-                school: "School is required.",
-                department: "Department is required.",
-                passingYear: "Passing year is required."
-            })
         }
     }
 
@@ -87,13 +81,6 @@ const profileUpdate = data => {
 
                 if (Object.keys(workErrorObj).length > 0) workErrors.push(workErrorObj)
             }
-        } else {
-            workErrors.push({
-                organization: "Organization is required.",
-                department: "Department is required.",
-                position: "Position is required.",
-                startFrom: "Start from date is required."
-            })
         }
     }
 
@@ -113,14 +100,8 @@ const profileUpdate = data => {
 
                 if (Object.keys(profileErrorObj).length > 0) otherProfileErrors.push(profileErrorObj)
             }
-        } else {
-            otherProfileErrors.push({
-                title: "Title is required.",
-                link: "Link is required."
-            })
         }
     }
-
 
     if (otherProfileErrors.length > 0) errors.otherProfiles = otherProfileErrors
 

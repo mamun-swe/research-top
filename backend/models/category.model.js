@@ -7,9 +7,9 @@ const categorySchema = new Schema({
         unique: true,
         required: true
     },
-    journals: [{
+    publications: [{
         type: Schema.Types.ObjectId,
-        ref: "Journal",
+        ref: "Publication",
         default: null
     }],
     createdBy: {
