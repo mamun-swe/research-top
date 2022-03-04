@@ -69,7 +69,7 @@ const show = async (req, res, next) => {
 /* Store item */
 const store = async (req, res, next) => {
     try {
-        const { id } = req.user
+        const { id, username } = req.user
         const {
             category,
             title,
@@ -94,6 +94,7 @@ const store = async (req, res, next) => {
         const newPublication = new Publication({
             category,
             researcher: id,
+            username,
             title,
             authors,
             publicationDate,

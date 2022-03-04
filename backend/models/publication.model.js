@@ -11,6 +11,11 @@ const publicationSchema = new Schema({
         ref: "Researcher",
         required: true
     },
+    username: {
+        type: String,
+        trim: true,
+        required: true
+    },
     title: {
         type: String,
         trim: true,

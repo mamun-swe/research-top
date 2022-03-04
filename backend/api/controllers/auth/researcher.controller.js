@@ -99,6 +99,7 @@ const login = async (req, res, next) => {
             {
                 id: account._id,
                 name: account.name,
+                username: account.username,
                 role: account.role,
             }, process.env.JWT_SECRET, { expiresIn: '1d' }
         )
