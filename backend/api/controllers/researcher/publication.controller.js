@@ -1,4 +1,6 @@
 
+
+const ObjectId = require("mongoose").Types.ObjectId
 const Category = require("../../../models/category.model")
 const Researcher = require("../../../models/researcher.model")
 const Publication = require("../../../models/publication.model")
@@ -122,8 +124,148 @@ const store = async (req, res, next) => {
     }
 }
 
+/* Update items */
+const update = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const {
+            category,
+            title,
+            authors,
+            publicationDate,
+            conference,
+            publisher,
+            description
+        } = req.body
+
+        /* Check validation */
+        const validate = await validator.store(req.body)
+        if (!validate.isValid) {
+            return res.status(422).json({
+                status: false,
+                errors: validate.errors
+            })
+        }
+
+        await isMongooseId(id)
+        await isMongooseId(category)
+
+        /* Check available */
+        const isAvailable = await Publication.findById(id)
+        if (!isAvailable) {
+            return res.status(404).json({
+                status: false,
+                errors: { message: "Publication not found." }
+            })
+        }
+
+        /* Remove from old category */
+        const isRemoveFromCategory = await Category.findByIdAndUpdate(
+            isAvailable.category,
+            { $pull: { "publications": { "$in": [new ObjectId(isAvailable._id)] } } }
+        )
+
+        if (!isRemoveFromCategory) {
+            return res.status(500).json({
+                status: false,
+                errors: { message: "Something going wrong." }
+            })
+        }
+
+        /* Add new category */
+        await Category.findByIdAndUpdate(
+            category,
+            { $push: { publications: isAvailable._id } }
+        )
+
+        /* Update publication */
+        await Publication.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    category,
+                    title,
+                    authors,
+                    publicationDate,
+                    conference,
+                    publisher,
+                    description
+                }
+            }
+        )
+
+        res.status(201).json({
+            status: true,
+            message: "Publication updated."
+        })
+    } catch (error) {
+        if (error) {
+            console.log(error)
+            next(error)
+        }
+    }
+}
+
+/* Destroy item */
+const destroy = async (req, res, next) => {
+    try {
+        const { id } = req.params
+
+        await isMongooseId(id)
+
+        /* Check available */
+        const isAvailable = await Publication.findById(id)
+        if (!isAvailable) {
+            return res.status(404).json({
+                status: false,
+                errors: { message: "Publication not found." }
+            })
+        }
+
+        /* Remove from category */
+        const isRemoveFromCategory = await Category.findByIdAndUpdate(
+            isAvailable.category,
+            { $pull: { "publications": { "$in": [new ObjectId(id)] } } }
+        )
+
+        if (!isRemoveFromCategory) {
+            return res.status(500).json({
+                status: false,
+                errors: { message: "Something going wrong." }
+            })
+        }
+
+        /* Remove from researcher */
+        const isRemoveFromResearcher = await Researcher.findByIdAndUpdate(
+            isAvailable.researcher,
+            { $pull: { "publications": { "$in": [new ObjectId(id)] } } }
+        )
+
+        if (!isRemoveFromResearcher) {
+            return res.status(500).json({
+                status: false,
+                errors: { message: "Something going wrong." }
+            })
+        }
+
+        await Publication.findByIdAndDelete(id)
+
+        res.status(200).json({
+            status: true,
+            message: "Publication deleted."
+        })
+    } catch (error) {
+        if (error) {
+            console.log(error)
+            next(error)
+        }
+    }
+}
+
 module.exports = {
     index,
     show,
-    store
+    store,
+    update,
+    destroy
 }

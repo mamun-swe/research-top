@@ -13,6 +13,8 @@ researcherRouter.put("/profile/update-username", profile.updateUsername)
 researcherRouter.get("/publication", publication.index)
 researcherRouter.get("/publication/:id", publication.show)
 researcherRouter.post("/publication", publication.store)
+researcherRouter.put("/publication/:id", publication.update)
+researcherRouter.delete("/publication/:id", publication.destroy)
 
 module.exports = {
     researcherRouter

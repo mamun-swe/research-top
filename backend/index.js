@@ -45,24 +45,24 @@ if (cluster.isMaster) {
     app.use((error, req, res, next) => {
         if (error.status == 404) {
             return res.status(404).json({
-                message: error.message
+                errors: { message: error.message }
             })
         }
 
         if (error.status == 400) {
             return res.status(400).json({
-                message: "Bad request."
+                errors: { message: "Bad request." }
             })
         }
 
         if (error.status == 401) {
             return res.status(401).json({
-                message: "You have no permission."
+                errors: { message: "You have no permission." }
             })
         }
 
         return res.status(500).json({
-            message: "Something going wrong."
+            errors: { message: "Something going wrong." }
         })
     })
 
