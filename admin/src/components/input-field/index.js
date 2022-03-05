@@ -86,8 +86,8 @@ export const PasswordField = ({ label, error, name, defaultvalue, placeholder, c
                     placeholder={placeholder}
                     type="password"
                     className={error ?
-                        "w-full text-sm bg-gray-100 rounded-md outline-none py-3 pl-10 border-red-400" :
-                        "w-full text-sm bg-gray-100 rounded-md outline-none py-3 pl-10"
+                        "w-full text-sm bg-gray-100 rounded-md outline-none p-3 border-red-400" :
+                        "w-full text-sm bg-gray-100 rounded-md outline-none p-3"
                     }
                 />
 

@@ -1,8 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { Power } from "react-feather"
+import { NavLink, useHistory } from 'react-router-dom'
 import { Images } from "../../utils/images"
 
 export const Sidebar = ({ routes }) => {
+    const hustory = useHistory()
+
+    const handleLogout = () => {
+        localStorage.clear()
+        hustory.push("/")
+    }
+
+
     return (
         <div className="w-[260px] fixed top-0 left-0 h-full bg-white hidden lg:block">
 
@@ -36,6 +45,17 @@ export const Sidebar = ({ routes }) => {
                     )
                 }
                 )}
+
+                <button
+                    type="button"
+                    className="px-3 py-[12px] mb-2 block text-[15px] text-orange-500 font-medium rounded-md hover:bg-orange-100 w-full text-left transition-all"
+                    onClick={() => handleLogout()}
+                >
+                    <div className="flex">
+                        <div><Power size={20} /></div>
+                        <div className="ml-2">Logout</div>
+                    </div>
+                </button>
             </div>
         </div>
     );

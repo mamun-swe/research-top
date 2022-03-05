@@ -29,14 +29,14 @@ export const ProfileDropdown = ({ image }) => {
                         <div className="p-3">
                             <Menu.Item>
                                 <Link to="/">
-                                    <button className="px-3 py-2 w-full text-[15px] rounded-md hover:bg-slate-100 transition ease-in-out delay-50 text-left">
+                                    <button className="px-3 py-2 w-full text-[15px] rounded-md text-orange-500 hover:bg-orange-100 transition ease-in-out delay-50 text-left">
                                         Profile
                                     </button>
                                 </Link>
                             </Menu.Item>
                             <Menu.Item>
                                 <Link to="/">
-                                    <button className="px-3 py-2 w-full text-[15px] rounded-md hover:bg-slate-100 transition ease-in-out delay-50 text-left">
+                                    <button className="px-3 py-2 w-full text-[15px] rounded-md text-orange-500 hover:bg-orange-100 transition ease-in-out delay-50 text-left">
                                         Setting
                                     </button>
                                 </Link>
