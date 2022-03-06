@@ -10,7 +10,7 @@ const index = async (req, res, next) => {
         const { limit, page } = paginateQueryParams(req.query)
 
         const totalItems = await Category.countDocuments()
-        const results = await Category.find({}, { publications: 0 })
+        const results = await Category.find()
             .sort({ _id: -1 })
             .skip((parseInt(page) * parseInt(limit)) - parseInt(limit))
             .limit(parseInt(limit))

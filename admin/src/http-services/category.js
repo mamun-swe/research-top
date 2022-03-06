@@ -25,6 +25,30 @@ const store = async (data) => {
     return await axios.post(`${process.env.REACT_APP_ADMIN_ENDPOINT}category`, data, header)
 }
 
+/* show */
+const show = async (id) => {
+    const header = {
+        headers: {
+            api_key: process.env.REACT_APP_API_KEY,
+            Authorization: "Bearer " + localStorage.getItem('token')
+        }
+    }
+
+    return await axios.get(`${process.env.REACT_APP_ADMIN_ENDPOINT}category/${id}`, header)
+}
+
+/* edit */
+const edit = async (id, data) => {
+    const header = {
+        headers: {
+            api_key: process.env.REACT_APP_API_KEY,
+            Authorization: "Bearer " + localStorage.getItem('token')
+        }
+    }
+
+    return await axios.put(`${process.env.REACT_APP_ADMIN_ENDPOINT}category/${id}`, data, header)
+}
+
 /* destroy */
 const destroy = async (id) => {
     const header = {
@@ -40,5 +64,7 @@ const destroy = async (id) => {
 export const Category = {
     index,
     store,
+    show,
+    edit,
     destroy
 }
