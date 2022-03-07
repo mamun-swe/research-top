@@ -93,6 +93,7 @@ const publications = async (req, res, next) => {
         const results = await Publication.find(
             { researcher: id },
             {
+                username: 0,
                 researcher: 0,
                 createdAt: 0,
                 updatedAt: 0
