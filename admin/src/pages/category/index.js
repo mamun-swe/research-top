@@ -65,6 +65,11 @@ const Index = () => {
             selector: row => row.title || "N/A"
         },
         {
+            name: "Publications",
+            sortable: true,
+            selector: row => row.publications ? row.publications.length : 0
+        },
+        {
             name: "Action",
             grow: 0,
             minWidth: "120px",
