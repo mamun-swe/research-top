@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom"
 import { appRoutes } from "../../routes"
 import { Navbar } from "../../components/navbar"
 import { Sidebar } from "../../components/sidebar"
+import { Drawer } from "../../components/drawer"
 import FourOFour from "../404"
 
 const Index = () => {
@@ -12,6 +13,11 @@ const Index = () => {
         <div>
             <Navbar onClick={() => setShow(!show)} />
             <Sidebar routes={appRoutes} />
+            <Drawer
+                show={show}
+                hidden={"lg"}
+                onClick={() => setShow(!show)}
+            />
 
             <div className="lg:pl-[260px] pt-[76px]">
                 <div className="p-3 lg:p-4">
