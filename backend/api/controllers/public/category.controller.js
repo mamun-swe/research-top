@@ -1,10 +1,14 @@
 
+const { redisClient } = require("../../cache")
 const Category = require("../../../models/category.model")
 
 /* list of items */
 const index = async (req, res, next) => {
     try {
         const results = await Category.find({}, { title: 1 })
+
+        /* Set data to cache */
+        await redisClient.setex("category", 3600, JSON.stringify(results))
 
         res.status(200).json({
             status: true,
