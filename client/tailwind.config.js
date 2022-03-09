@@ -4,7 +4,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        '3xl': '1740px',
+      },
+    },
   },
   plugins: [
     function ({ addComponents }) {
@@ -22,6 +26,12 @@ module.exports = {
           },
           '@screen xl': {
             maxWidth: '1140px',
+          },
+          '@screen 2xl': {
+            maxWidth: '1350px',
+          },
+          '@screen 3xl': {
+            maxWidth: '1600px',
           },
         }
       })
