@@ -1,10 +1,8 @@
 import Head from "next/head"
-import { useState } from "react"
 import { Navbar } from "../components/navabr"
-import { Drawer } from "../components/drawer"
+import { Footer } from "../components/footer"
 
 export default function Home() {
-  const [show, setShow] = useState(false)
 
   return (
     <div>
@@ -14,17 +12,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar
-        user={""}
-        handleDrawer={() => setShow(!show)}
-      />
+      <Navbar user={""} />
 
-      <Drawer
-        show={show}
-        hidden={"lg"}
-        onClick={() => setShow(!show)}
-      />
 
+
+      <Footer />
     </div>
   )
 }

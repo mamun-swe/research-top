@@ -97,7 +97,7 @@ export const Drawer = (props) => {
                             >
                                 <div className="flex">
                                     <div className="mr-2"><UserPlus size={18} /></div>
-                                    <div><p className="text-sm font-medium">Create an account</p></div>
+                                    <div><p className="text-sm font-medium">Create account</p></div>
                                 </div>
                             </button>
                         </a>

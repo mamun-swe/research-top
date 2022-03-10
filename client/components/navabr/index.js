@@ -1,13 +1,17 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 import { Menu } from "react-feather"
 import { Images } from "../../utils/images"
 import { PrimaryButton, CircleIconButton } from "../button"
+import { Drawer } from "./drawer"
 
 export const Navbar = (props) => {
+    const [show, setShow] = useState(false)
+
     return (
-        <div className="fixed top-0 left-0 w-full py-4">
+        <div className="fixed top-0 left-0 w-full py-4 z-50 bg-white">
             <div className="container mx-auto">
                 <div className="flex w-full">
 
@@ -55,7 +59,7 @@ export const Navbar = (props) => {
                             <div className="mr-2">
                                 <Link href="/create-account">
                                     <a>
-                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Create an account</p>
+                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Create account</p>
                                     </a>
                                 </Link>
                             </div>
@@ -76,7 +80,7 @@ export const Navbar = (props) => {
                             </div>
 
                             <div className="ml-3 lg:hidden">
-                                <CircleIconButton onClick={props.handleDrawer}>
+                                <CircleIconButton onClick={() => setShow(!show)}>
                                     <Menu size={20} />
                                 </CircleIconButton>
                             </div>
@@ -84,6 +88,13 @@ export const Navbar = (props) => {
                     </div>
                 </div>
             </div>
+
+            {/* Drawer */}
+            <Drawer
+                show={show}
+                hidden={"lg"}
+                onClick={() => setShow(!show)}
+            />
         </div>
     );
 };
