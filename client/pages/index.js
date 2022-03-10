@@ -14,7 +14,7 @@ export default function Home() {
 
       <Navbar user={""} />
 
-
+      <div className="bg-indigo-400 h-[500px]"></div>
 
       <Footer />
     </div>
