@@ -1,24 +1,45 @@
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Images } from "../../utils/images"
 import { Text } from "../../components/text"
 import { Navbar } from "../../components/navabr"
 import { Footer } from "../../components/footer"
 import { PrimaryButton } from "../../components/button"
-import { ResearcherPreloader } from "../../components/preloader"
+import { NoContent } from "../../components/no-content"
+import { NetworkError } from "../../components/network-error"
+import { ResearcherListPreloader } from "../../components/preloader"
+import { ResearcherList } from "../api"
 
 const index = () => {
-    const [isLoading, setLoading] = useState(true)
     const [data, setData] = useState([])
+    const [isLoading, setLoading] = useState(true)
+    const [serverError, setServerError] = useState(false)
+
+    /* fetch data */
+    const fetchData = useCallback(async (page) => {
+        try {
+            const response = await ResearcherList(page, 20)
+            if (response && response.status === 200) {
+                setData(response.data.data)
+                setLoading(false)
+            } else {
+                setLoading(false)
+                setServerError(true)
+            }
+        } catch (error) {
+            if (error) {
+                setLoading(false)
+                setServerError(true)
+                console.log(error.response)
+            }
+        }
+    }, [])
 
     useEffect(() => {
-        setTimeout(() => {
-            setData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-            setLoading(false)
-        }, 3000)
-    }, [])
+        fetchData(1)
+    }, [fetchData])
 
     return (
         <div>
@@ -36,14 +57,16 @@ const index = () => {
                 </div>
             </div>
 
-            {isLoading && !data.length ? <ResearcherPreloader length={12} /> : null}
+            {isLoading && !serverError && !data.length ? <ResearcherListPreloader length={12} /> : null}
+            {!isLoading && !serverError && !data.length ? <NoContent message="No data available." /> : null}
+            {!isLoading && serverError && !data.length ? <NetworkError /> : null}
 
-            {!isLoading && data.length > 0 ?
+            {!isLoading && !serverError && data.length > 0 ?
                 <div className="container mx-auto mb-14">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 text-center gap-8">
 
                         {data && data.map((item, i) =>
-                            <Link href={`/researcher/${item}`} key={i}>
+                            <Link href={`/researcher/${item._id}`} key={i}>
                                 <a>
                                     <div className="w-[250px] sm:w-full mx-auto p-8 border rounded-2xl hover:border-white hover:shadow-xl transition-all cursor-pointer">
                                         <Image
@@ -53,7 +76,7 @@ const index = () => {
                                             height={100}
                                         />
 
-                                        <Text className="text-md font-normal mt-2">abcd xyz</Text>
+                                        <Text className="text-md font-normal mt-2">{item.name}</Text>
                                     </div>
                                 </a>
                             </Link>

@@ -1,18 +1,19 @@
 
+
 import { Images } from "../../utils/images"
 
-export const NoContent = (props) => {
+export const NetworkError = () => {
     return (
         <div className="p-5 text-center">
             <img
-                src={Images.NoContent}
-                alt="No content"
+                src={Images.ServerError}
+                alt="Network error"
                 width={250}
                 height={250}
                 className="mx-auto"
             />
 
-            <p className="text-md font-medium text-indigo-500 mt-4">{props.message}</p>
+            <p className="text-md font-medium text-indigo-500 mt-4">Network error.</p>
         </div>
     )
 }
