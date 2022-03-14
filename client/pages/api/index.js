@@ -11,27 +11,26 @@ const header = {
 
 /* Public researcher list */
 export const ResearcherList = async (page, limit) => {
-    try {
-        return await axios.get(`${BASE_URL}public/researcher?page=${page}&limit=${limit}`, header)
-    } catch (error) {
-        if (error) return error
-    }
+    return await axios.get(`${BASE_URL}public/researcher?page=${page}&limit=${limit}`, header)
 }
 
 /* Public profile */
 export const ResearcherPublicProfile = async (username) => {
-    try {
-        return await axios.get(`${BASE_URL}public/researcher/${username}`, header)
-    } catch (error) {
-        if (error) return error
-    }
+    return await axios.get(`${BASE_URL}public/researcher/${username}`, header)
 }
 
 /* Publications */
 export const ResearcherPublications = async (username, page, limit) => {
-    try {
-        return await axios.get(`${BASE_URL}public/researcher/publications/${username}?page=${page}&limit=${limit}`, header)
-    } catch (error) {
-        if (error) return error
-    }
+    return await axios.get(`${BASE_URL}public/researcher/publications/${username}?page=${page}&limit=${limit}`, header)
+}
+
+
+/* Login */
+export const Login = async (data) => {
+    return await axios.post(`${BASE_URL}auth/researcher/login`, data, header)
+}
+
+/* Registration */
+export const Registration = async (data) => {
+    return await axios.post(`${BASE_URL}auth/researcher/register`, data, header)
 }

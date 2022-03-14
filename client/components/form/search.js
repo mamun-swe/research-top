@@ -2,7 +2,6 @@
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { Search } from "react-feather"
-import { Text } from "../../text"
 
 export const SearchForm = () => {
     const history = useRouter()
