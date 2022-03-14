@@ -7,7 +7,7 @@ const index = () => {
     return (
         <div>
             <DashboardLayout>
-                <div className="p-2 bg-white">
+                <div className="p-2 bg-white rounded-md">
                     <p>Hello</p>
                 </div>
             </DashboardLayout>
