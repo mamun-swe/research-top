@@ -13,7 +13,7 @@ import { DataTable } from "../../components/table"
 import { NoContent } from "../../components/no-content"
 import { NetworkError } from "../../components/network-error"
 import { ResearcherShowPreloader } from "../../components/preloader"
-import { ResearcherPublicProfile } from "../../pages/api"
+import { ResearcherPublicProfile, ResearcherPublications } from "../../pages/api"
 
 const index = () => {
     const router = useRouter()
@@ -21,6 +21,10 @@ const index = () => {
     const [data, setData] = useState()
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
+
+    const [perPage, setPerPage] = useState(20)
+    const [totalRows, setTotalRows] = useState(0)
+    const [publication, setPublication] = useState({ isLoading: true, data: [] })
 
     /* fetch data */
     const fetchData = useCallback(async () => {
@@ -42,9 +46,58 @@ const index = () => {
         }
     }, [username])
 
+    /* fetch publication */
+    const fetchPublications = useCallback(async (username, page) => {
+        try {
+            setPublication({ ...publication, isLoading: true })
+            const response = await ResearcherPublications(username, page, perPage)
+            if (response.status === 200 && response.data.data.length > 0) {
+                console.log(response.data.data);
+                setPublication({ isLoading: false, data: response.data.data })
+                setTotalRows(response.data.pagination?.response.data.pagination.total_items)
+            }
+            // setPublication({ ...publication, isLoading: false })
+            // setPublication(exPublication => ({ ...exPublication, isLoading: false }))
+        } catch (error) {
+            if (error) {
+                setPublication({ ...publication, isLoading: false })
+                console.log(error.response)
+            }
+        }
+    }, [username, perPage])
+
     useEffect(() => {
         fetchData()
     }, [username, fetchData])
+
+    useEffect(() => {
+        if (username) fetchPublications(username, 1)
+    }, [username, fetchPublications])
+
+    // handle paginate page change
+    const handlePageChange = page => fetchPublications(username, page)
+
+    // handle paginate row change
+    const handlePerRowsChange = async (newPerPage, page) => {
+        setPublication({ ...publication, isLoading: true })
+        const response = await ResearcherPublications(username, page, newPerPage)
+        setPublication({ isLoading: false, data: response.data.data })
+        setPerPage(newPerPage)
+    }
+
+    // data columns
+    const columns = [
+        {
+            name: "Date",
+            sortable: true,
+            selector: row => row.publicationDate || "N/A"
+        },
+        {
+            name: "Title",
+            sortable: true,
+            selector: row => row.title
+        }
+    ]
 
     return (
         <div>
@@ -163,7 +216,15 @@ const index = () => {
 
                             {/* Publications list */}
                             <div className="grow p-5">
-                                <DataTable noDataMessage="Publications not available." />
+                                <DataTable
+                                    data={publication.data}
+                                    columns={columns}
+                                    loading={publication.isLoading}
+                                    totalRows={totalRows}
+                                    handlePerRowsChange={handlePerRowsChange}
+                                    handlePageChange={handlePageChange}
+                                    noDataMessage="Publications not available."
+                                />
                             </div>
                         </div>
                     </div>

@@ -26,3 +26,12 @@ export const ResearcherPublicProfile = async (username) => {
         if (error) return error
     }
 }
+
+/* Publications */
+export const ResearcherPublications = async (username, page, limit) => {
+    try {
+        return await axios.get(`${BASE_URL}public/researcher/publications/${username}?page=${page}&limit=${limit}`, header)
+    } catch (error) {
+        if (error) return error
+    }
+}
