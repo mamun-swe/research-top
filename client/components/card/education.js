@@ -9,10 +9,10 @@ export const EducationCard = (props) => {
             </div>
             <div className="grow">
                 <Text className="text-sm font-medium capitalize text-gray-600 mb-1">
-                    ABC School
+                    {props?.data?.school}
                 </Text>
                 <Text className="text-sm font-normal capitalize text-gray-400">
-                    Science [2020]
+                    {props?.data?.department} [{props?.data?.passingYear}]
                 </Text>
             </div>
         </div>

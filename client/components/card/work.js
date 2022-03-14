@@ -1,5 +1,6 @@
 import { Briefcase } from "react-feather"
 import { Text } from "../text"
+import { dateTodate } from "../../utils/helper"
 
 export const WorkCard = (props) => {
     return (
@@ -9,14 +10,14 @@ export const WorkCard = (props) => {
             </div>
             <div className="grow">
                 <Text className="text-sm font-medium capitalize text-gray-600">
-                    software engineer
+                    {props?.data?.position}
                 </Text>
                 <Text className="text-sm font-medium capitalize mb-1 text-gray-600">
-                    NexusLab
+                    {props?.data?.organization}
                 </Text>
 
                 <Text className="text-sm font-normal text-gray-400 capitalize">
-                    [10 May, 2020 - Current]
+                    [{dateTodate(props?.data?.startFrom)} - {props.data && props.data.onGoing ? "Current" : dateTodate(props?.data?.endTo)}]
                 </Text>
             </div>
         </div>

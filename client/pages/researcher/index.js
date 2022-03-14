@@ -66,7 +66,7 @@ const index = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 text-center gap-8">
 
                         {data && data.map((item, i) =>
-                            <Link href={`/researcher/${item._id}`} key={i}>
+                            <Link href={`/researcher/${item.username}`} key={i}>
                                 <a>
                                     <div className="w-[250px] sm:w-full mx-auto p-8 border rounded-2xl hover:border-white hover:shadow-xl transition-all cursor-pointer">
                                         <Image

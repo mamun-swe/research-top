@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState, useCallback } from "react"
 import { Images } from "../../utils/images"
 import { Text } from "../../components/text"
 import { Navbar } from "../../components/navabr"
@@ -9,18 +10,41 @@ import { WorkCard } from "../../components/card/work"
 import { EducationCard } from "../../components/card/education"
 import { BookOpen, Flag, MapPin, User } from "react-feather"
 import { DataTable } from "../../components/table"
+import { NoContent } from "../../components/no-content"
+import { NetworkError } from "../../components/network-error"
 import { ResearcherShowPreloader } from "../../components/preloader"
+import { ResearcherPublicProfile } from "../../pages/api"
 
 const index = () => {
-    const [data, setData] = useState({})
+    const router = useRouter()
+    const { username } = router.query
+    const [data, setData] = useState()
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
 
+    /* fetch data */
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await ResearcherPublicProfile(username)
+            if (response && response.status === 200) {
+                setData(response.data.data)
+                setLoading(false)
+            } else {
+                setLoading(false)
+                setServerError(true)
+            }
+        } catch (error) {
+            if (error) {
+                setLoading(false)
+                setServerError(true)
+                console.log(error.response)
+            }
+        }
+    }, [username])
+
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2000);
-    }, [])
+        fetchData()
+    }, [username, fetchData])
 
     return (
         <div>
@@ -32,10 +56,13 @@ const index = () => {
 
             <Navbar user={""} />
 
-            {isLoading ?
-                <ResearcherShowPreloader /> :
+            <div className="container mx-auto mt-[74px] py-[30px]">
 
-                <div className="container mx-auto mt-[74px] py-[30px]">
+                {isLoading && !serverError && !data ? <ResearcherShowPreloader /> : null}
+                {!isLoading && !serverError && !data ? <NoContent message="No content available." /> : null}
+                {!isLoading && serverError && !data ? <NetworkError /> : null}
+
+                {!isLoading && !serverError && data ?
                     <div className="grid grid-cols-1">
                         <div className="lg:flex">
 
@@ -49,16 +76,13 @@ const index = () => {
                                         height={150}
                                     />
 
-                                    <Text className="text-md font-medium capitalize">abdullah al mamun</Text>
+                                    <Text className="text-md font-medium capitalize">{data?.name}</Text>
                                 </div>
 
                                 <div>
 
                                     {/* About */}
-                                    <Text className="text-sm font-normal text-gray-500 mb-3">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                                        molestiae quas vel sint commodi repudiandae consequuntur.
-                                    </Text>
+                                    <Text className="text-sm font-normal text-gray-500 mb-3">{data?.about}</Text>
 
                                     {/* Address */}
                                     <table className="table-auto mb-4">
@@ -68,7 +92,7 @@ const index = () => {
                                                     <MapPin size={16} />
                                                 </td>
                                                 <td>
-                                                    <Text className="text-sm font-normal text-gray-500">Dhaka</Text>
+                                                    <Text className="text-sm font-normal text-gray-500">{data?.address}</Text>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -76,7 +100,7 @@ const index = () => {
                                                     <Flag size={16} />
                                                 </td>
                                                 <td>
-                                                    <Text className="text-sm font-normal text-gray-500">Bangladesh</Text>
+                                                    <Text className="text-sm font-normal text-gray-500">{data?.country}</Text>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -84,7 +108,7 @@ const index = () => {
                                                     <BookOpen size={16} />
                                                 </td>
                                                 <td>
-                                                    <Text className="text-sm font-normal text-gray-500">10 publications</Text>
+                                                    <Text className="text-sm font-normal text-gray-500">{data?.publications} publications</Text>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -93,7 +117,7 @@ const index = () => {
                                                 </td>
                                                 <td>
                                                     <Text className="text-sm font-normal text-gray-500">
-                                                        www.researchtop/researcher/mamun-swe
+                                                        www.researchtop/researcher/{data?.username}
                                                     </Text>
                                                 </td>
                                             </tr>
@@ -101,20 +125,34 @@ const index = () => {
                                     </table>
 
                                     {/* Work experience */}
-                                    <div className="mb-4">
-                                        <Text className="text-sm font-medium mb-3">Work experience</Text>
+                                    {data && data.work && data.work.length > 0 ?
+                                        <div className="mb-4">
+                                            <Text className="text-sm font-medium mb-3">Work experience</Text>
 
-                                        <WorkCard />
-                                        <WorkCard />
-                                    </div>
+                                            {data.work.map((item, i) =>
+                                                <WorkCard
+                                                    key={i}
+                                                    data={item}
+                                                />
+                                            )}
+                                        </div>
+                                        : null
+                                    }
 
                                     {/* Education */}
-                                    <div>
-                                        <Text className="text-sm font-medium mb-3">Education</Text>
+                                    {data && data.education && data.education.length > 0 ?
+                                        <div>
+                                            <Text className="text-sm font-medium mb-3">Education</Text>
 
-                                        <EducationCard />
-                                        <EducationCard />
-                                    </div>
+                                            {data.education.map((item, i) =>
+                                                <EducationCard
+                                                    key={i}
+                                                    data={item}
+                                                />
+                                            )}
+                                        </div>
+                                        : null
+                                    }
 
                                     {/* Other profiles */}
                                     <div>
@@ -129,8 +167,11 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            }
+                    : null
+                }
+
+            </div>
+
 
             <Footer />
         </div>

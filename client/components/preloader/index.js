@@ -25,25 +25,25 @@ export const ResearcherShowPreloader = () => {
                 <div className="lg:flex">
                     <div className="w-full lg:w-[350px] mb-10 lg:mb-0 lg:pr-5">
                         <div className="border rounded-lg shadow-md p-5">
-                            <div class="w-[120px] h-[120px] bg-slate-200 rounded-full mb-5 mx-auto lg:mx-0" />
-                            <div class="w-[200px] h-2 bg-slate-200 rounded col-span-2 mb-4 mx-auto lg:mx-0" />
-                            <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                            <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                            <div class="h-2 bg-slate-200 rounded col-span-2" />
+                            <div className="w-[120px] h-[120px] bg-slate-200 rounded-full mb-5 mx-auto lg:mx-0" />
+                            <div className="w-[200px] h-2 bg-slate-200 rounded col-span-2 mb-4 mx-auto lg:mx-0" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2" />
                         </div>
                     </div>
 
                     <div className="grow">
                         <div className="border shadow-md rounded-lg p-5">
                             <div className="grid grid-cols-4 gap-4">
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
-                                <div class="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                                <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
                             </div>
                         </div>
                     </div>
