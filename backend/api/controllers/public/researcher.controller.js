@@ -6,35 +6,22 @@ const { paginateQueryParams, paginate } = require("../../helper/pagination.helpe
 /* List of items */
 const index = async (req, res, next) => {
     try {
-        const items = []
         const { limit, page } = paginateQueryParams(req.query)
 
         const totalItems = await Researcher.countDocuments()
         const results = await Researcher.find({},
             {
                 name: 1,
-                username: 1,
-                country: 1,
-                publications: 1
+                username: 1
             })
             .sort({ _id: -1 })
             .skip((parseInt(page) * parseInt(limit)) - parseInt(limit))
             .limit(parseInt(limit))
             .exec()
 
-        if (results && results.length > 0) {
-            for (let i = 0; i < results.length; i++) {
-                const element = results[i]._doc
-                items.push({
-                    ...element,
-                    publications: element.publications.length
-                })
-            }
-        }
-
         res.status(200).json({
             status: true,
-            data: items,
+            data: results,
             pagination: paginate({ page, limit, totalItems })
         })
     } catch (error) {
