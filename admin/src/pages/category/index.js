@@ -51,7 +51,7 @@ const Index = () => {
     // handle paginate row change
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true)
-        const response = await await Services.Category.index({ page, limit: newPerPage })
+        const response = await Services.Category.index({ page, limit: newPerPage })
         setData(response.data.data)
         setPerPage(newPerPage)
         setLoading(false)

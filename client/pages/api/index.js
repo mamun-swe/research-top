@@ -3,9 +3,18 @@ import axios from "axios"
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
+const accessToken = () => {
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem("token")
+    } else {
+        return null
+    }
+}
+
 const header = {
     headers: {
-        api_key: API_KEY
+        api_key: API_KEY,
+        Authorization: "Bearer " + accessToken()
     }
 }
 
@@ -33,4 +42,16 @@ export const Login = async (data) => {
 /* Registration */
 export const Registration = async (data) => {
     return await axios.post(`${BASE_URL}auth/researcher/register`, data, header)
+}
+
+/* -------- Protected APIs */
+
+/* Me */
+export const Me = async () => {
+    return await axios.get(`${BASE_URL}researcher/profile/me`, header)
+}
+
+/* Publications */
+export const Publications = async (page, limit) => {
+    return await axios.get(`${BASE_URL}researcher/publication?page=${page}&limit=${limit}`, header)
 }

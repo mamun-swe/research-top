@@ -85,3 +85,51 @@ export const TableLoader = () => {
         </div>
     )
 }
+
+export const DashboardPreloader = () => {
+    return (
+        <div>
+            <div className="px-4 py-6 bg-white rounded-md mb-4">
+                <div className="h-2 w-[200px] md:w-[400px] mx-auto bg-slate-200 rounded col-span-2" />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+                <div className="p-4 bg-white rounded-md">
+                    <div className="h-2 w-[200px] bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded" />
+                </div>
+
+                <div className="p-4 bg-white rounded-md">
+                    <div className="h-2 w-[200px] bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded" />
+                </div>
+
+                <div className="p-4 bg-white rounded-md">
+                    <div className="h-2 w-[200px] bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded" />
+                </div>
+
+                <div className="p-4 bg-white rounded-md">
+                    <div className="h-2 w-[200px] bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-4" />
+                    <div className="h-2 w-full bg-slate-200 rounded" />
+                </div>
+            </div>
+        </div>
+    )
+}
