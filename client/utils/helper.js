@@ -24,3 +24,15 @@ export const isValidEmail = () => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     return regex
 }
+
+// Greeting
+export const greeting = () => {
+    const date = new Date().getHours()
+    if (date < 12) {
+        return "Good Morning"
+    } else if (date < 18) {
+        return "Good Afternoon"
+    } else {
+        return "Good Night"
+    }
+}
