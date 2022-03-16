@@ -55,3 +55,8 @@ export const Me = async () => {
 export const Publications = async (page, limit) => {
     return await axios.get(`${BASE_URL}researcher/publication?page=${page}&limit=${limit}`, header)
 }
+
+/* Publication store */
+export const PublicationStore = async (data) => {
+    return await axios.post(`${BASE_URL}researcher/publication`, data, header)
+}
