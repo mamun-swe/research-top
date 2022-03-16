@@ -263,10 +263,39 @@ const destroy = async (req, res, next) => {
     }
 }
 
+/* Category items */
+const categoryItems = async (req, res, next) => {
+    try {
+        const items = []
+        const results = await Category.find({}, { title: 1 })
+
+        if (results && results.length > 0) {
+            for (let i = 0; i < results.length; i++) {
+                const element = results[i]
+                items.push({
+                    value: element._id,
+                    label: element.title
+                })
+            }
+        }
+
+        res.status(200).json({
+            status: true,
+            data: items
+        })
+    } catch (error) {
+        if (error) {
+            console.log(error)
+            next(error)
+        }
+    }
+}
+
 module.exports = {
     index,
     show,
     store,
     update,
-    destroy
+    destroy,
+    categoryItems
 }

@@ -6,14 +6,21 @@ import { withAuth } from "../../../hook/with-auth"
 import { CircleIconButton } from "../../../components/button"
 import { DashboardLayout } from "../../../components/dashboard-layout"
 import { PublicationForm } from "../../../components/form/publication"
+import { PublicationStore } from "../../api"
 
 const store = () => {
 
     /* Handle form submission */
     const handleSubmit = async (data) => {
         try {
-            console.log("Log from here")
-            console.log(data)
+            const formData = {
+                ...data,
+                category: data.category.value,
+                authors: data.authors.map(x => { return x.value })
+            }
+
+            const response = await PublicationStore(formData)
+            console.log(response)
         } catch (error) {
             if (error) {
                 console.log(error?.response)

@@ -99,12 +99,6 @@ export const PublicationForm = (props) => {
                 </div>
             </div>
 
-
-
-
-
-
-
             {/* Description */}
             <div className="mb-5">
                 <TextAreaField
