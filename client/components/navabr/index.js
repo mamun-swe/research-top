@@ -108,7 +108,7 @@ export const Navbar = (props) => {
                                         <a>
                                             <button
                                                 type="button"
-                                                className="bg-gradient-to-r from-indigo-300 to-blue-300 rounded-full text-white font-extrabold text-xl uppercase w-[36px] h-[36px] text-center"
+                                                className="bg-gradient-to-r from-indigo-300 to-blue-300 rounded-full text-white font-extrabold text-md uppercase w-[36px] h-[36px] text-center"
                                             >
                                                 {user ? user.charAt(0) : null}
                                             </button>
