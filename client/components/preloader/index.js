@@ -133,3 +133,26 @@ export const DashboardPreloader = () => {
         </div>
     )
 }
+
+export const DashboardPublicationCreate = () => {
+    return (
+        <div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="h-10 w-full bg-slate-200 rounded" />
+                <div className="h-10 w-full bg-slate-200 rounded" />
+                <div className="h-10 w-full bg-slate-200 rounded" />
+                <div className="h-10 w-full bg-slate-200 rounded" />
+                <div className="h-10 w-full bg-slate-200 rounded" />
+                <div className="h-10 w-full bg-slate-200 rounded" />
+            </div>
+
+            <div className="my-4">
+                <div className="h-24 w-full bg-slate-200 rounded" />
+            </div>
+
+            <div className="text-right">
+                <div className="h-10 w-[100px] ml-auto bg-slate-200 rounded" />
+            </div>
+        </div>
+    )
+}

@@ -57,6 +57,11 @@ export const Publications = async (page, limit) => {
 }
 
 /* Publication store */
+export const PrivateCategoryItems = async () => {
+    return await axios.get(`${BASE_URL}researcher/category`, header)
+}
+
+/* Publication store */
 export const PublicationStore = async (data) => {
     return await axios.post(`${BASE_URL}researcher/publication`, data, header)
 }

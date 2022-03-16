@@ -23,7 +23,7 @@ export const PublicationForm = (props) => {
                         control={control}
                         isClearable={true}
                         label={"Category"}
-                        options={[{ label: "Cat 1", value: "Cat 1" }, { label: "Cat 2", value: "Cat 2" }]}
+                        options={props?.categories}
                         placeholder={"Select category"}
                         defaultvalue={props?.data?.category}
                         error={errors.category && errors.category.message}
