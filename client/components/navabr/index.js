@@ -1,14 +1,33 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { Menu } from "react-feather"
-import { Images } from "../../utils/images"
-import { PrimaryButton, CircleIconButton } from "../button"
 import { Drawer } from "./drawer"
+import { Images } from "../../utils/images"
+import { isValidToken } from "../../utils/helper"
+import { PrimaryButton, CircleIconButton } from "../button"
 
 export const Navbar = (props) => {
+    const router = useRouter()
     const [show, setShow] = useState(false)
+    const [user, setUser] = useState(null)
+
+    useEffect(async () => {
+        if (typeof window !== "undefined") {
+            const accessToken = localStorage.getItem("token")
+            if (accessToken) {
+                const tokenVerify = await isValidToken(accessToken)
+                if (tokenVerify) {
+                    setUser(tokenVerify)
+                } else {
+                    localStorage.clear()
+                    router.push("/")
+                }
+            }
+        }
+    }, [])
 
     return (
         <div className="fixed top-0 left-0 w-full py-4 z-50 bg-white">
@@ -56,28 +75,47 @@ export const Navbar = (props) => {
                                 </Link>
                             </div>
 
-                            <div className="mr-2">
-                                <Link href="/create-account">
-                                    <a>
-                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Create account</p>
-                                    </a>
-                                </Link>
-                            </div>
+                            {!user ?
+                                <div className="mr-2">
+                                    <Link href="/create-account">
+                                        <a>
+                                            <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Create account</p>
+                                        </a>
+                                    </Link>
+                                </div>
+                                : null
+                            }
                         </div>
                     </div>
 
                     {/* Action buttons */}
                     <div className="ml-auto">
                         <div className="flex">
-                            <div>
-                                <Link href="/login">
-                                    <a>
-                                        <PrimaryButton>
-                                            Login
-                                        </PrimaryButton>
-                                    </a>
-                                </Link>
-                            </div>
+
+                            {!user ?
+                                <div>
+                                    <Link href="/login">
+                                        <a>
+                                            <PrimaryButton>
+                                                Login
+                                            </PrimaryButton>
+                                        </a>
+                                    </Link>
+                                </div>
+                                :
+                                <div>
+                                    <Link href="/dashboard">
+                                        <a>
+                                            <button
+                                                type="button"
+                                                className="bg-gradient-to-r from-indigo-300 to-blue-300 rounded-full text-white font-extrabold text-xl uppercase w-[36px] h-[36px] text-center"
+                                            >
+                                                {user ? user.charAt(0) : null}
+                                            </button>
+                                        </a>
+                                    </Link>
+                                </div>
+                            }
 
                             <div className="ml-3 lg:hidden">
                                 <CircleIconButton onClick={() => setShow(!show)}>

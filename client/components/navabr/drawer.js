@@ -6,10 +6,28 @@
 
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { Award, Globe, Home, UserPlus } from "react-feather"
+import { isValidToken } from "../../utils/helper"
 
 export const Drawer = (props) => {
     const router = useRouter()
+    const [user, setUser] = useState(null)
+
+    useEffect(async () => {
+        if (typeof window !== "undefined") {
+            const accessToken = localStorage.getItem("token")
+            if (accessToken) {
+                const tokenVerify = await isValidToken(accessToken)
+                if (tokenVerify) {
+                    setUser(tokenVerify)
+                } else {
+                    localStorage.clear()
+                    router.push("/")
+                }
+            }
+        }
+    }, [])
 
     const isActive = path => {
         if (router.pathname === path) return true
@@ -86,22 +104,25 @@ export const Drawer = (props) => {
                         </a>
                     </Link>
 
-                    <Link href="/create-account">
-                        <a>
-                            <button
-                                type="button"
-                                className={isActive("/create-account") ?
-                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
-                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
-                                }
-                            >
-                                <div className="flex">
-                                    <div className="mr-2"><UserPlus size={18} /></div>
-                                    <div><p className="text-sm font-medium">Create account</p></div>
-                                </div>
-                            </button>
-                        </a>
-                    </Link>
+                    {!user ?
+                        <Link href="/create-account">
+                            <a>
+                                <button
+                                    type="button"
+                                    className={isActive("/create-account") ?
+                                        "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                        "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
+                                    }
+                                >
+                                    <div className="flex">
+                                        <div className="mr-2"><UserPlus size={18} /></div>
+                                        <div><p className="text-sm font-medium">Create account</p></div>
+                                    </div>
+                                </button>
+                            </a>
+                        </Link>
+                        : null
+                    }
                 </div>
             </div>
         </div>

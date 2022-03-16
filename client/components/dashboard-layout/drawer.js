@@ -6,7 +6,7 @@
 
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Grid, BookOpen, Power } from "react-feather"
+import { Grid, BookOpen, Power, Home } from "react-feather"
 
 export const Drawer = (props) => {
     const router = useRouter()
@@ -40,6 +40,23 @@ export const Drawer = (props) => {
             >
 
                 <div className="p-3">
+                    <Link href="/">
+                        <a>
+                            <button
+                                type="button"
+                                className={isActive("/") ?
+                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
+                                }
+                            >
+                                <div className="flex">
+                                    <div className="mr-2"><Home size={18} /></div>
+                                    <div><p className="text-sm font-medium">Home</p></div>
+                                </div>
+                            </button>
+                        </a>
+                    </Link>
+
                     <Link href="/dashboard">
                         <a>
                             <button

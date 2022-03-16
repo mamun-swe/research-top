@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode"
 
 export const arraFromNumber = (number) => {
     const array = []
@@ -34,5 +35,17 @@ export const greeting = () => {
         return "Good Afternoon"
     } else {
         return "Good Night"
+    }
+}
+
+// Valid jwt token
+export const isValidToken = async (token) => {
+    try {
+        const validToken = await jwtDecode(token, { header: true })
+        if (validToken) return await jwtDecode(token).name
+    } catch (error) {
+        if (error) {
+            return false
+        }
     }
 }
