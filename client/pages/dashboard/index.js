@@ -55,7 +55,7 @@ const index = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
 
                             {/* Personal info */}
                             <div className="p-4 bg-white rounded-md">

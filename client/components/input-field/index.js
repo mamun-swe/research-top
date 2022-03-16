@@ -159,14 +159,14 @@ export const TextAreaField = ({ label, error, name, defaultvalue, placeholder, c
 // 7. rules
 // 8. icon 20X20
 
-export const DateField = ({ label, error, name, defaultValue, placeholder, control, rules, icon }) => {
+export const DateField = ({ label, error, name, defaultvalue, placeholder, control, rules, icon }) => {
     const {
         field: { onChange, onBlur, value, ref }
     } = useController({
         name,
         control,
         rules: { ...rules },
-        defaultValue: defaultValue,
+        defaultValue: defaultvalue,
     })
 
     return (

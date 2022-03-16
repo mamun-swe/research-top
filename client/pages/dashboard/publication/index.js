@@ -8,7 +8,10 @@ import { DataTable } from "../../../components/table"
 import { Toastify } from "../../../components/toastify"
 import { CircleIconButton } from "../../../components/button"
 import { DashboardLayout } from "../../../components/dashboard-layout"
-import { Publications } from "../../api"
+import { PrimaryButton, DangerButton } from "../../../components/button"
+import { Modal } from "../../../components/modal"
+import { Text } from "../../../components/text"
+import { Publications, PublicationDelete } from "../../api"
 
 const index = () => {
     const [data, setData] = useState([])
@@ -53,6 +56,24 @@ const index = () => {
         setData(response.data.data)
         setPerPage(newPerPage)
         setLoading(false)
+    }
+
+    // handle delete
+    const handleDelete = async () => {
+        try {
+            setWillDelete({ ...willDelete, loading: true })
+            const response = await PublicationDelete(willDelete.id)
+            if (response && response.status === 200) {
+                fetchData(1)
+                Toastify.Success(response.data.message)
+            }
+            setWillDelete({ id: null, loading: false, show: false })
+        } catch (error) {
+            if (error) {
+                console.log(error)
+                setWillDelete({ id: null, loading: false, show: false })
+            }
+        }
     }
 
     // data columns
@@ -133,6 +154,32 @@ const index = () => {
                         />
                     </div>
                 </div>
+
+                <Modal
+                    show={willDelete.show}
+                    title={"Are you sure?"}
+                    onHide={() => setWillDelete({ id: null, loading: false, show: false })}
+                >
+                    <div>
+                        <Text className="text-sm mb-5">Want to delete this publication.</Text>
+                        <div>
+                            <PrimaryButton
+                                type="button"
+                                disabled={willDelete.loading}
+                                onClick={() => handleDelete()}
+                            >
+                                {willDelete.loading ? "Loading..." : "Yes"}
+                            </PrimaryButton>
+                            <DangerButton
+                                className="ml-2"
+                                disabled={willDelete.loading}
+                                onClick={() => setWillDelete({ id: null, loading: false, show: false })}
+                            >
+                                No
+                            </DangerButton>
+                        </div>
+                    </div>
+                </Modal>
             </DashboardLayout>
         </div>
     );

@@ -22,15 +22,15 @@ export const DashboardLayout = (props) => {
                 onClick={() => setShow(!show)}
             />
 
-            <div className="lg:flex w-full min-h-screen">
+            <div className="w-full min-h-screen">
 
                 {/* Sidebar container */}
-                <div className="hidden lg:block w-[300px] min-h-screen p-4">
+                <div className="hidden lg:block fixed w-[300px] top-0 left-0 bottom-0 p-4">
                     <Sidebar />
                 </div>
 
                 {/* Main container */}
-                <div className="grow mt-[66px] lg:mt-0 py-3 pr-3 pl-3 lg:py-4 lg:pr-4 lg:pl-0">
+                <div className="pl-3 lg:pl-[300px] mt-[66px] lg:mt-0 py-3 pr-3 lg:py-4 lg:pr-4">
                     {props.children}
                 </div>
             </div>

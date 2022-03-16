@@ -25,7 +25,12 @@ export const PublicationForm = (props) => {
                         label={"Category"}
                         options={props?.categories}
                         placeholder={"Select category"}
-                        defaultvalue={props?.data?.category}
+                        defaultvalue={props.data && props.data.category ?
+                            {
+                                label: props.data.category.title,
+                                value: props.data.category._id
+                            } : null
+                        }
                         error={errors.category && errors.category.message}
                         rules={{ required: "Category is required" }}
                     />
@@ -53,7 +58,10 @@ export const PublicationForm = (props) => {
                         borderRadius={6}
                         label={"Authors"}
                         placeholder={"Authors name"}
-                        defaultvalue={props?.data?.authors}
+                        defaultvalue={props.data && props.data.authors && props.data.authors.length > 0 ?
+                            props.data.authors.map(x => { return { label: x, value: x } })
+                            : null
+                        }
                         error={errors.authors && errors.authors.message}
                         rules={{ required: "Authors is required" }}
                     />
@@ -65,7 +73,7 @@ export const PublicationForm = (props) => {
                         label="Publish date"
                         name="publicationDate"
                         control={control}
-                        defaultvalue={props?.data?.publicationDate}
+                        defaultvalue={props.data && props.data.publicationDate ? new Date(props.data.publicationDate) : null}
                         error={errors.publicationDate && errors.publicationDate.message}
                         placeholder={"Publish date"}
                         rules={{ required: "Date is required" }}
@@ -119,7 +127,15 @@ export const PublicationForm = (props) => {
                     type="submit"
                     disabled={props.isLoading}
                 >
-                    {props.isLoading ? "Loading..." : "Create"}
+                    {props.formType && props.formType === "edit" ?
+                        <>
+                            {props.isLoading ? "Loading..." : "Update"}
+                        </>
+                        :
+                        <>
+                            {props.isLoading ? "Loading..." : "Create"}
+                        </>
+                    }
                 </PrimaryButton>
             </div>
         </form>

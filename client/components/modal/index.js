@@ -1,4 +1,9 @@
 
+/* Required props */
+/* show: boolean */
+/* title: string */
+/* onHide: function */
+/* children */
 
 import { Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
@@ -35,7 +40,7 @@ export const Modal = (props) => {
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
                         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-screen sm:max-w-lg sm:w-full">
-                            <div className="p-4 sm:p-6 flex w-full">
+                            <div className="p-5 flex w-full">
                                 <Dialog.Title className="text-md mt-[6px] font-medium text-gray-900">{props.title || "Modal title"}</Dialog.Title>
                                 <div className="ml-auto">
                                     <button
@@ -49,7 +54,7 @@ export const Modal = (props) => {
                             </div>
 
                             {/* All children goes here */}
-                            <div className="bg-white p-4 sm:p-6">
+                            <div className="bg-white p-5">
                                 {props.children}
                             </div>
                         </div>

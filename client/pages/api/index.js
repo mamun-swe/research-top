@@ -65,3 +65,18 @@ export const PrivateCategoryItems = async () => {
 export const PublicationStore = async (data) => {
     return await axios.post(`${BASE_URL}researcher/publication`, data, header)
 }
+
+/* Publication show */
+export const PublicationShow = async (id) => {
+    return await axios.get(`${BASE_URL}researcher/publication/${id}`, header)
+}
+
+/* Publication update */
+export const PublicationUpdate = async (id, data) => {
+    return await axios.put(`${BASE_URL}researcher/publication/${id}`, data, header)
+}
+
+/* Publication delete */
+export const PublicationDelete = async (id) => {
+    return await axios.delete(`${BASE_URL}researcher/publication/${id}`, header)
+}
