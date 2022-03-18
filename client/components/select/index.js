@@ -4,6 +4,7 @@ import Creatable from "react-select/creatable"
 import Select, { components } from "react-select"
 import { useController } from "react-hook-form"
 import { Text } from "../text"
+import { countries } from "./data/countries"
 
 const customStyles = (radius) => {
 
@@ -185,4 +186,55 @@ export const SearchableSelect = (props) => {
             />
         </div>
     )
+}
+
+// Country select
+export const CountrySelect = ({ name, control, isClearable, error, label, placeholder, borderRadius, options, defaultvalue, rules }) => {
+    const { Option } = components
+    const {
+        field: { onChange, onBlur, value, ref }
+    } = useController({
+        name,
+        control,
+        rules: { ...rules },
+        defaultValue: defaultvalue
+    })
+
+    // Add image in each option
+    const Imageoption = (props) => (
+        <Option {...props}>
+            {props.data.flag ? <img src={props.data.flag} style={{ width: 30, height: 30, marginRight: 5 }} alt="..." /> : null}
+            <span>{props.data.label}</span>
+        </Option>
+    )
+
+    const handleSelect = event => onChange(event)
+
+    return (
+        <div>
+            {error ?
+                <Text className="text-sm text-red-500 mb-1">{error}</Text> :
+                <Text className="text-sm text-gray-700 mb-1">{label}</Text>
+            }
+
+            <Select
+                classNamePrefix="custom-select"
+                onBlur={onBlur} // notify when input is touched/blur
+                value={value} // input value
+                name={name} // send down the input name
+                inputRef={ref} // send input ref, so we can focus on input when error appear
+                placeholder={placeholder}
+                styles={customStyles(borderRadius)}
+                components={{
+                    DropdownIndicator: () => null,
+                    IndicatorSeparator: () => null,
+                    Option: Imageoption
+                }}
+                options={countries}
+                onChange={handleSelect}
+                isClearable={isClearable}
+                defaultValue={defaultvalue ? { ...defaultvalue } : null}
+            />
+        </div>
+    );
 }
