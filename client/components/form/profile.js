@@ -1,17 +1,24 @@
 
-import React, { Component, useEffect, useState } from "react"
+import React from "react"
 import { useForm } from "react-hook-form"
 import { PrimaryButton } from "../button"
-import { CountrySelect } from "../select"
 import { TextField, TextAreaField } from "../input-field"
-import ReactFlagsSelect from "react-flags-select"
-import { countries } from "../select/data/countries"
+import { ReactCountrySelectComponent } from 'react-country-select-component'
 
 export const ProfileForm = (props) => {
-    const { control, handleSubmit, formState: { errors } } = useForm()
-    const [selected, setSelected] = useState('')
+    const { control, handleSubmit, formState: { errors }, setValue, setError, clearErrors } = useForm()
 
-    const onSubmit = data => props.onSubmit(data)
+    const onSubmit = data => {
+        if (!data.country) {
+            setError("country", {
+                type: "manual",
+                message: "Country is required.",
+            })
+            return
+        }
+
+        props.onSubmit(data)
+    }
 
     return (
         <div>
@@ -45,20 +52,45 @@ export const ProfileForm = (props) => {
 
                 {/* Country */}
                 <div className="mb-5">
-                    <CountrySelect
-                        name={"country"}
-                        control={control}
+                    <ReactCountrySelectComponent
+                        name={'country'}
                         isClearable={true}
                         error={errors.country && errors.country.message}
-                        label={"Select country"}
-                        placeholder={"Select country"}
+                        label='Country'
+                        placeholder={'Select country'}
                         borderRadius={6}
                         defaultvalue={null}
-                        rules={{ required: "Address is required" }}
+                        onChange={(event) => {
+                            if (event && event.value) {
+                                setValue('country', event.value)
+                                clearErrors("country")
+                            } else {
+                                setValue('country', null)
+                            }
+                        }}
                     />
                 </div>
 
+                {/* About */}
+                <div className="mb-5">
+                    <TextAreaField
+                        label="About yourself"
+                        name="about"
+                        rows={4}
+                        control={control}
+                        defaultvalue={props?.data?.about}
+                        error={errors.about && errors.about.message}
+                        placeholder={"Write yourself"}
+                        rules={{ required: "About is required" }}
+                    />
+                </div>
 
+                <div className="text-right">
+                    <PrimaryButton
+                        type="submit"
+                        disabled={props.loading}
+                    >{props.loading ? "Saving..." : "Save changes"}</PrimaryButton>
+                </div>
             </form>
         </div>
     );

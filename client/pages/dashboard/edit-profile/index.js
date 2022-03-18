@@ -40,9 +40,7 @@ const index = () => {
         try {
             // setCreating(true)
             const formData = {
-                ...data,
-                category: data.category.value,
-                authors: data.authors.map(x => { return x.value })
+                ...data
             }
 
             console.log(formData)
@@ -87,7 +85,8 @@ const index = () => {
 
                     <div className="">
                         <ProfileForm
-                            onSubmit={handleSubmit}
+                            loading={false}
+                            onSubmit={data => handleSubmit(data)}
                         />
                     </div>
                 </div>
