@@ -106,7 +106,7 @@ const index = () => {
                 <div>
                     <Link href={`/dashboard/publication/${row._id}`}>
                         <CircleIconButton type="button">
-                            <Edit2 size={18} />
+                            <Edit2 size={16} />
                         </CircleIconButton>
                     </Link>
 
@@ -117,7 +117,7 @@ const index = () => {
                             setWillDelete({ id: row._id, show: true, loading: false })
                         }}
                     >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                     </CircleIconButton>
                 </div>
         }

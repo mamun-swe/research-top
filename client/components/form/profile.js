@@ -3,7 +3,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import { PrimaryButton } from "../button"
 import { TextField, TextAreaField } from "../input-field"
-import { ReactCountrySelectComponent } from 'react-country-select-component'
+import { ReactCountrySelectComponent } from "react-country-select-component"
 
 export const ProfileForm = (props) => {
     const { control, handleSubmit, formState: { errors }, setValue, setError, clearErrors } = useForm()

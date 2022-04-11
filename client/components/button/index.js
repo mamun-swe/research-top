@@ -5,7 +5,7 @@ export const PrimaryButton = (props) => {
             onClick={props.onClick}
             disabled={props.disabled}
             type={props.type || "button"}
-            className={`bg-gradient-to-r from-indigo-300 to-blue-300 px-6 py-[10px] rounded-[4px] transition-all disabled:bg-indigo-300 ${props?.className}`}
+            className={`bg-indigo-300 px-6 py-[10px] rounded-[4px] transition-all disabled:bg-indigo-100 ${props?.className}`}
         >
             <p className="text-sm font-medium text-white">{props.children}</p>
         </button>

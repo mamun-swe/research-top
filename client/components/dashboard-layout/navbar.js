@@ -7,7 +7,7 @@ import { Images } from "../../utils/images"
 
 export const Navbar = (props) => {
     return (
-        <div className="flex">
+        <div className="flex z-50">
             <div>
                 <Link href="/">
                     <a>

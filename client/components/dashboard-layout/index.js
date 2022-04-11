@@ -11,7 +11,7 @@ export const DashboardLayout = (props) => {
         <div className="bg-gray-100">
 
             {/* Navbar */}
-            <div className="p-3 fixed top-0 left-0 w-full lg:hidden bg-white">
+            <div className="p-3 fixed top-0 left-0 w-full lg:hidden bg-white z-50">
                 <Navbar onClick={() => setShow(!show)} />
             </div>
 
