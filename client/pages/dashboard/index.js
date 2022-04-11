@@ -1,20 +1,22 @@
 
-import Link from "next/link"
+
 import React, { useCallback, useEffect, useState } from "react"
+import { Plus } from "react-feather"
 import { withAuth } from "../../hook/with-auth"
 import { dateTodate } from "../../utils/helper"
-import { PrimaryButton } from "../../components/button"
 import { NetworkError } from "../../components/network-error"
 import { DashboardPreloader } from "../../components/preloader"
 import { DashboardLayout } from "../../components/dashboard-layout"
 import { DashboardCover } from "../../components/dashboard/cover"
+import { Modal } from "../../components/modal"
+import { CreateWorkForm } from "../../components/form/create-work"
 import { Me } from "../api"
-import { Plus } from "react-feather"
 
 const index = () => {
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
+    const [work, setWork] = useState({ show: false, loading: false })
 
     /* fetch data */
     const fetchData = useCallback(async () => {
@@ -85,7 +87,9 @@ const index = () => {
                             <div className="rounded-md shadow-lg bg-white min-h-[350px]">
                                 <div className="border-b w-full inline-flex justify-between p-3">
                                     <p className="text-sm font-medium mt-1">Work exp.</p>
-                                    <button className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
+                                    <button
+                                        onClick={() => setWork({ show: true, loading: false })}
+                                        className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
                                         <Plus size={18} />
                                     </button>
                                 </div>
@@ -150,8 +154,23 @@ const index = () => {
                     : null
                 }
             </DashboardLayout>
-        </div>
+
+            {/* Work creation */}
+            <Modal
+                show={work.show}
+                loading={work.loading}
+                onHide={() => setWork({ ...work, show: false })}
+                title="Create work"
+            >
+                <CreateWorkForm
+                    loading={work.loading}
+                    onSubmit={data => console.log(data)}
+                />
+            </Modal>
+        </div >
     );
 };
 
 export default withAuth(index);
+
+
