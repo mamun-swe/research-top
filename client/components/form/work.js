@@ -5,8 +5,8 @@ import { PrimaryButton } from "../button"
 import { TextField, DateField } from "../input-field"
 
 
-export const CreateWorkForm = (props) => {
-    const { control, handleSubmit, formState: { errors } } = useForm()
+export const WorkForm = (props) => {
+    const { register, control, handleSubmit, formState: { errors } } = useForm()
 
     const onSubmit = data => props.onSubmit(data)
 
@@ -66,7 +66,7 @@ export const CreateWorkForm = (props) => {
                     rules={{ required: "Start date is required" }}
                 />
 
-                {/* Start date */}
+                {/* End date */}
                 <DateField
                     label="End to"
                     name="endTo"
@@ -78,9 +78,15 @@ export const CreateWorkForm = (props) => {
                 />
             </div>
 
-            {/* is current date */}
-            <div className="mb-4">
+            {/* On going checkbox */}
+            <div className="inline-flex mb-4">
+                <input
+                    type={"checkbox"}
+                    className="w-[20px] h-[20px]"
+                    {...register("onGoing")}
+                />
 
+                <p className="ml-2 text-sm text-normal">On going</p>
             </div>
 
             {/* Submit button */}

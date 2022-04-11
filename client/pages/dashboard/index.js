@@ -9,7 +9,8 @@ import { DashboardPreloader } from "../../components/preloader"
 import { DashboardLayout } from "../../components/dashboard-layout"
 import { DashboardCover } from "../../components/dashboard/cover"
 import { Modal } from "../../components/modal"
-import { CreateWorkForm } from "../../components/form/create-work"
+import { WorkForm } from "../../components/form/work"
+import { EducationForm } from "../../components/form/education"
 import { Me } from "../api"
 
 const index = () => {
@@ -17,6 +18,7 @@ const index = () => {
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
     const [work, setWork] = useState({ show: false, loading: false })
+    const [education, setEducation] = useState({ show: false, loading: false })
 
     /* fetch data */
     const fetchData = useCallback(async () => {
@@ -111,7 +113,9 @@ const index = () => {
                             <div className="rounded-md shadow-lg bg-white min-h-[350px]">
                                 <div className="border-b w-full inline-flex justify-between p-3">
                                     <p className="text-sm font-medium mt-1">Education</p>
-                                    <button className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
+                                    <button
+                                        onClick={() => setEducation({ show: true, loading: false })}
+                                        className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
                                         <Plus size={18} />
                                     </button>
                                 </div>
@@ -162,7 +166,20 @@ const index = () => {
                 onHide={() => setWork({ ...work, show: false })}
                 title="Create work"
             >
-                <CreateWorkForm
+                <WorkForm
+                    loading={work.loading}
+                    onSubmit={data => console.log(data)}
+                />
+            </Modal>
+
+            {/* Education creation */}
+            <Modal
+                show={education.show}
+                loading={education.loading}
+                onHide={() => setEducation({ ...education, show: false })}
+                title="Create education"
+            >
+                <EducationForm
                     loading={work.loading}
                     onSubmit={data => console.log(data)}
                 />

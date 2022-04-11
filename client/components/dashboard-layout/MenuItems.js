@@ -23,7 +23,7 @@ export const MenuItems = () => {
                     <button
                         type="button"
                         className={isActive("/") ?
-                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-sky-500" :
                             "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-gray-500"
                         }
                     >
@@ -40,7 +40,7 @@ export const MenuItems = () => {
                     <button
                         type="button"
                         className={isActive("/dashboard") ?
-                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-sky-500" :
                             "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-gray-500"
                         }
                     >
@@ -57,7 +57,7 @@ export const MenuItems = () => {
                     <button
                         type="button"
                         className={isActive("/dashboard/publication") ?
-                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                            "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-sky-500" :
                             "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-gray-500"
                         }
                     >
