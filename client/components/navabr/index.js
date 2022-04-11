@@ -54,7 +54,7 @@ export const Navbar = (props) => {
                             <div className="mr-2">
                                 <Link href="/">
                                     <a>
-                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Home</p>
+                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-primary">Home</p>
                                     </a>
                                 </Link>
                             </div>
@@ -62,7 +62,7 @@ export const Navbar = (props) => {
                             <div className="mr-2">
                                 <Link href="/about">
                                     <a>
-                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">About</p>
+                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-primary">About</p>
                                     </a>
                                 </Link>
                             </div>
@@ -70,7 +70,7 @@ export const Navbar = (props) => {
                             <div className="mr-2">
                                 <Link href="/researcher">
                                     <a>
-                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Researcher</p>
+                                        <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-primary">Researcher</p>
                                     </a>
                                 </Link>
                             </div>
@@ -79,7 +79,7 @@ export const Navbar = (props) => {
                                 <div className="mr-2">
                                     <Link href="/create-account">
                                         <a>
-                                            <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-indigo-400">Create account</p>
+                                            <p className="px-6 py-[8px] text-sm font-medium transition-all text-black hover:text-primary">Create account</p>
                                         </a>
                                     </Link>
                                 </div>
@@ -108,7 +108,7 @@ export const Navbar = (props) => {
                                         <a>
                                             <button
                                                 type="button"
-                                                className="bg-gradient-to-r from-indigo-300 to-blue-300 rounded-full text-white font-extrabold text-md uppercase w-[36px] h-[36px] text-center"
+                                                className="bg-primary rounded-full text-white font-extrabold text-md uppercase w-[36px] h-[36px] text-center"
                                             >
                                                 {user ? user.charAt(0) : null}
                                             </button>

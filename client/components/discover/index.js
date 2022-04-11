@@ -38,7 +38,7 @@ export const Discover = () => {
                     </div>
 
                     <div className="text-center lg:text-left py-3">
-                        <Text className="mb-5 font-extrabold text-transparent text-3xl md:text-4xl bg-clip-text bg-gradient-to-r from-indigo-500 to-blue-300"
+                        <Text className="mb-5 font-extrabold text-transparent text-3xl md:text-4xl bg-clip-text bg-gradient-to-r from-primary to-sky-100"
                         >Discover something new</Text>
 
                         <Text className="text-md text-gray-400 font-normal">

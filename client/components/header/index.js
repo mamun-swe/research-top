@@ -42,7 +42,7 @@ export const Header = () => {
                     {/* Text container */}
                     <div className="px-3 lg:px-0 py-5 text-center lg:text-left mb-5 lg:mb-0">
                         <Text
-                            className="2xl:mt-16 font-extrabold text-transparent text-5xl md:text-6xl lg:text-8xl bg-clip-text bg-gradient-to-r from-indigo-500 to-blue-300"
+                            className="2xl:mt-16 font-extrabold text-transparent text-5xl md:text-6xl lg:text-8xl bg-clip-text bg-gradient-to-r from-sky-500 to-sky-100"
                         >Connect million researcher.</Text>
                     </div>
 

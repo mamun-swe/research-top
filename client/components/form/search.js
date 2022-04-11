@@ -29,7 +29,7 @@ export const SearchForm = () => {
                     <div className="flex-none p-1">
                         <button
                             type="submit"
-                            className="p-[10px] rounded-full transition-all shadow-lg text-white bg-indigo-400 hover:bg-indigo-500"
+                            className="p-[10px] rounded-full transition-all shadow-lg text-white bg-sky-500 hover:bg-sky-400"
                         >
                             <Search size={25} />
                         </button>

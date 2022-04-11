@@ -58,7 +58,7 @@ export const Drawer = (props) => {
                             <button
                                 type="button"
                                 className={isActive("/") ?
-                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-primary" :
                                     "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
                                 }
                             >
@@ -75,7 +75,7 @@ export const Drawer = (props) => {
                             <button
                                 type="button"
                                 className={isActive("/about") ?
-                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-primary" :
                                     "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
                                 }
                             >
@@ -92,7 +92,7 @@ export const Drawer = (props) => {
                             <button
                                 type="button"
                                 className={isActive("/researcher") ?
-                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                    "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-primary" :
                                     "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
                                 }
                             >
@@ -110,7 +110,7 @@ export const Drawer = (props) => {
                                 <button
                                     type="button"
                                     className={isActive("/create-account") ?
-                                        "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-indigo-400" :
+                                        "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-white bg-primary" :
                                         "w-full px-3 py-[10px] rounded-[4px] transition-all text-left text-black"
                                     }
                                 >
