@@ -1,4 +1,6 @@
 
+
+import { publicRequest, privateRequest } from "./axios.config"
 import axios from "axios"
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
@@ -13,135 +15,63 @@ const accessToken = () => {
 
 /* Public researcher list */
 export const ResearcherList = async (page, limit) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}public/researcher?page=${page}&limit=${limit}`, header)
+    return await publicRequest.get(`${BASE_URL}/public/researcher?page=${page}&limit=${limit}`)
 }
 
 /* Public profile */
 export const ResearcherPublicProfile = async (username) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}public/researcher/${username}`, header)
+    return await publicRequest.get(`${BASE_URL}/public/researcher/${username}`)
 }
 
 /* Publications */
 export const ResearcherPublications = async (username, page, limit) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}public/researcher/publications/${username}?page=${page}&limit=${limit}`, header)
+    return await publicRequest.get(`${BASE_URL}/public/researcher/publications/${username}?page=${page}&limit=${limit}`)
 }
 
 
 /* Login */
 export const Login = async (data) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.post(`${BASE_URL}auth/researcher/login`, data, header)
+    return await publicRequest.post(`${BASE_URL}/auth/researcher/login`, data)
 }
 
 /* Registration */
 export const Registration = async (data) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.post(`${BASE_URL}auth/researcher/register`, data, header)
+    return await publicRequest.post(`${BASE_URL}/auth/researcher/register`, data)
 }
 
-/* -------- Protected APIs */
+/* -------- Private API requests */
 
 /* Me */
 export const Me = async () => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}researcher/profile/me`, header)
+    return await privateRequest.get(`${BASE_URL}/researcher/profile/me`)
 }
 
 /* Publications */
 export const Publications = async (page, limit) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}researcher/publication?page=${page}&limit=${limit}`, header)
+    return await privateRequest.get(`${BASE_URL}researcher/publication?page=${page}&limit=${limit}`)
 }
 
 /* Publication store */
 export const PrivateCategoryItems = async () => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}researcher/category`, header)
+    return await privateRequest.get(`${BASE_URL}/researcher/category`)
 }
 
 /* Publication store */
 export const PublicationStore = async (data) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.post(`${BASE_URL}researcher/publication`, data, header)
+    return await privateRequest.post(`${BASE_URL}/researcher/publication`, data)
 }
 
 /* Publication show */
 export const PublicationShow = async (id) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.get(`${BASE_URL}researcher/publication/${id}`, header)
+    return await privateRequest.get(`${BASE_URL}/researcher/publication/${id}`)
 }
 
 /* Publication update */
 export const PublicationUpdate = async (id, data) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.put(`${BASE_URL}researcher/publication/${id}`, data, header)
+    return await privateRequest.put(`${BASE_URL}/researcher/publication/${id}`, data)
 }
 
 /* Publication delete */
 export const PublicationDelete = async (id) => {
-    const header = {
-        headers: {
-            api_key: API_KEY,
-            Authorization: "Bearer " + accessToken()
-        }
-    }
-    return await axios.delete(`${BASE_URL}researcher/publication/${id}`, header)
+    return await privateRequest.delete(`${BASE_URL}/researcher/publication/${id}`)
 }

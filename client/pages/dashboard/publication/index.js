@@ -112,7 +112,7 @@ const index = () => {
 
                     <CircleIconButton
                         type="button"
-                        className="ml-1"
+                        className="!text-red-500 ml-1"
                         onClick={() => {
                             setWillDelete({ id: row._id, show: true, loading: false })
                         }}

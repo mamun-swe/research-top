@@ -28,7 +28,7 @@ export const CircleIconButton = (props) => {
     return (
         <button
             onClick={props.onClick}
-            className={`p-2 rounded-full transition-all text-black bg-gray-200 hover:bg-gray-300 ${props?.className}`}
+            className={`p-2 rounded-full transition-all text-gray-500 bg-gray-100 hover:bg-gray-200 ${props?.className}`}
         >
             {props.children}
         </button>

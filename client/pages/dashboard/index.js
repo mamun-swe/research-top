@@ -1,7 +1,7 @@
 
 
 import React, { useCallback, useEffect, useState } from "react"
-import { Plus } from "react-feather"
+import { Plus, Trash2 } from "react-feather"
 import { withAuth } from "../../hook/with-auth"
 import { dateTodate } from "../../utils/helper"
 import { NetworkError } from "../../components/network-error"
@@ -11,7 +11,9 @@ import { DashboardCover } from "../../components/dashboard/cover"
 import { Modal } from "../../components/modal"
 import { WorkForm } from "../../components/form/work"
 import { EducationForm } from "../../components/form/education"
+import { SocialForm } from "../../components/form/social"
 import { Me } from "../api"
+import { CircleIconButton, DangerButton } from "../../components/button"
 
 const index = () => {
     const [data, setData] = useState(null)
@@ -19,6 +21,7 @@ const index = () => {
     const [serverError, setServerError] = useState(false)
     const [work, setWork] = useState({ show: false, loading: false })
     const [education, setEducation] = useState({ show: false, loading: false })
+    const [social, setSocial] = useState({ show: false, loading: false })
 
     /* fetch data */
     const fetchData = useCallback(async () => {
@@ -98,10 +101,20 @@ const index = () => {
                                 <div className="p-3">
                                     {data.work && data.work.length > 0 ?
                                         data.work.map((item, i) =>
-                                            <div className="p-2" key={i}>
-                                                <p className="text-sm font-normal capitalize">{item.position}</p>
-                                                <p className="text-sm font-normal capitalize mb-1">{item.organization}</p>
-                                                <p className="text-xs font-normal text-gray-500">[{dateTodate(item.startFrom)} - {item.onGoing ? "CURRENT" : item.endTo ? dateTodate(item.endTo) : null}]</p>
+                                            <div className="flex w-full p-2" key={i}>
+                                                <div className="grow">
+                                                    <p className="text-sm font-normal capitalize">{item.position}</p>
+                                                    <p className="text-sm font-normal capitalize mb-1">{item.organization}</p>
+                                                    <p className="text-xs font-normal text-gray-500">[{dateTodate(item.startFrom)} - {item.onGoing ? "CURRENT" : item.endTo ? dateTodate(item.endTo) : null}]</p>
+                                                </div>
+                                                <div>
+                                                    <CircleIconButton
+                                                        type="button"
+                                                        className="!text-red-500"
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </CircleIconButton>
+                                                </div>
                                             </div>
                                         ) :
                                         <p className="text-[13px] font-regular text-gray-500">No work history added.</p>
@@ -122,10 +135,20 @@ const index = () => {
                                 <div className="p-3">
                                     {data.education && data.education.length > 0 ?
                                         data.education.map((item, i) =>
-                                            <div className="p-2" key={i}>
-                                                <p className="text-sm font-normal capitalize">{item.school}</p>
-                                                <p className="text-sm font-normal mb-1">Department of {item.department}</p>
-                                                <p className="text-xs font-normal text-gray-500">[{item.passingYear}]</p>
+                                            <div className="flex w-full p-2" key={i}>
+                                                <div className="grow">
+                                                    <p className="text-sm font-normal capitalize">{item.school}</p>
+                                                    <p className="text-sm font-normal mb-1">Department of {item.department}</p>
+                                                    <p className="text-xs font-normal text-gray-500">[{item.passingYear}]</p>
+                                                </div>
+                                                <div>
+                                                    <CircleIconButton
+                                                        type="button"
+                                                        className="!text-red-500"
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </CircleIconButton>
+                                                </div>
                                             </div>
                                         ) :
                                         <p className="text-xs font-normal text-gray-500">No education history added.</p>
@@ -137,16 +160,29 @@ const index = () => {
                             <div className="rounded-md shadow-lg bg-white min-h-[350px]">
                                 <div className="border-b w-full inline-flex justify-between p-3">
                                     <p className="text-sm font-medium mt-1">Public profiles</p>
-                                    <button className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
+                                    <button
+                                        className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black"
+                                        onClick={() => setSocial({ show: true, loading: false })}
+                                    >
                                         <Plus size={18} />
                                     </button>
                                 </div>
                                 <div className="p-3">
                                     {data.otherProfiles && data.otherProfiles.length > 0 ?
                                         data.otherProfiles.map((item, i) =>
-                                            <div className="p-2" key={i}>
-                                                <p className="text-sm font-normal capitalize mb-1">{item.title}</p>
-                                                <p className="text-xs font-normal text-gray-500">{item.link}</p>
+                                            <div className="flex w-full p-2" key={i}>
+                                                <div className="grow">
+                                                    <p className="text-sm font-normal capitalize mb-1">{item.title}</p>
+                                                    <p className="text-xs font-normal text-gray-500">{item.link}</p>
+                                                </div>
+                                                <div>
+                                                    <CircleIconButton
+                                                        type="button"
+                                                        className="!text-red-500"
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </CircleIconButton>
+                                                </div>
                                             </div>
                                         ) :
                                         <p className="text-[13px] font-normal text-gray-500">No profiles added.</p>
@@ -184,7 +220,20 @@ const index = () => {
                     onSubmit={data => console.log(data)}
                 />
             </Modal>
-        </div >
+
+            {/* Social profile creation */}
+            <Modal
+                show={social.show}
+                loading={social.loading}
+                onHide={() => setSocial({ ...social, show: false })}
+                title="Create profile"
+            >
+                <SocialForm
+                    loading={social.loading}
+                    onSubmit={data => console.log(data)}
+                />
+            </Modal>
+        </div>
     );
 };
 
