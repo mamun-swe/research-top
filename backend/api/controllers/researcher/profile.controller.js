@@ -129,8 +129,58 @@ const updateUsername = async (req, res, next) => {
     }
 }
 
+/* Add word */
+const addWork = async (req, res, next) => {
+    try {
+        const { id } = req.user
+        const {
+            organization,
+            department,
+            position,
+            startFrom,
+            endTo,
+            onGoing
+        } = req.body
+
+        /* Check validity */
+        const validate = await validator.addWork(req.body)
+        if (!validate.isValid) {
+            return res.status(422).json({
+                status: false,
+                errors: validate.errors
+            })
+        }
+
+        const newWork = {
+            organization,
+            department,
+            position,
+            startFrom,
+            endTo: onGoing ? null : endTo,
+            onGoing: endTo ? false : true
+        }
+
+        /* find and update work */
+        await Researcher.findByIdAndUpdate(
+            id,
+            { $push: { work: newWork } }
+        )
+
+        res.status(201).json({
+            status: true,
+            message: "Work created."
+        })
+    } catch (error) {
+        if (error) {
+            console.log(error)
+            next(error)
+        }
+    }
+}
+
 module.exports = {
     me,
     update,
-    updateUsername
+    updateUsername,
+    addWork
 }

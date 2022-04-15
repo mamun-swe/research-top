@@ -8,6 +8,7 @@ const publication = require("../controllers/researcher/publication.controller")
 researcherRouter.get("/profile/me", profile.me)
 researcherRouter.put("/profile/update", profile.update)
 researcherRouter.put("/profile/update-username", profile.updateUsername)
+researcherRouter.put("/profile/add-work", profile.addWork)
 
 /* Publication routes */
 researcherRouter.get("/publication", publication.index)

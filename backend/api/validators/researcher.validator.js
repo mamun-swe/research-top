@@ -111,10 +111,26 @@ const profileUpdate = data => {
     }
 }
 
+/* Add work */
+const addWork = data => {
+    let errors = {}
+
+    if (!data.organization || isEmpty(data.organization)) errors.organization = "Organization is required."
+    if (!data.department || isEmpty(data.department)) errors.department = "Department is required."
+    if (!data.position || isEmpty(data.position)) errors.position = "Position is required."
+    if (!data.startFrom || isEmpty(data.startFrom)) errors.startFrom = "Start from date is required."
+
+    return {
+        errors,
+        isValid: Object.keys(errors).length === 0
+    }
+}
+
 
 module.exports = {
     login,
     register,
     reset,
-    profileUpdate
+    profileUpdate,
+    addWork
 }
