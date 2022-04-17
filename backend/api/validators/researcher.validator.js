@@ -42,75 +42,6 @@ const reset = data => {
     }
 }
 
-/* Profile update */
-const profileUpdate = data => {
-    let errors = {}
-
-    /* handle education errors */
-    let educationErrors = []
-
-    if (data.education) {
-        if (data.education.length > 0) {
-            for (let i = 0; i < data.education.length; i++) {
-                const element = data.education[i]
-                let eduErrorObj = {}
-
-                if (!element.school || isEmpty(element.school)) eduErrorObj.school = "School is required."
-                if (!element.department || isEmpty(element.department)) eduErrorObj.department = "Department is required."
-                if (!element.passingYear || isEmpty(element.passingYear)) eduErrorObj.passingYear = "Passing year is required."
-
-                if (Object.keys(eduErrorObj).length > 0) educationErrors.push(eduErrorObj)
-            }
-        }
-    }
-
-    if (educationErrors.length > 0) errors.education = educationErrors
-
-    /* handle work errors */
-    let workErrors = []
-    if (data.work) {
-        if (data.work.length > 0) {
-            for (let i = 0; i < data.work.length; i++) {
-                const element = data.work[i]
-                let workErrorObj = {}
-
-                if (!element.organization || isEmpty(element.organization)) workErrorObj.organization = "Organization is required."
-                if (!element.department || isEmpty(element.department)) workErrorObj.department = "Department is required."
-                if (!element.position || isEmpty(element.position)) workErrorObj.position = "Position is required."
-                if (!element.startFrom || isEmpty(element.startFrom)) workErrorObj.startFrom = "Start from date is required."
-
-                if (Object.keys(workErrorObj).length > 0) workErrors.push(workErrorObj)
-            }
-        }
-    }
-
-
-    if (workErrors.length > 0) errors.work = workErrors
-
-    /* handle others profile errors */
-    let otherProfileErrors = []
-    if (data.otherProfiles) {
-        if (data.otherProfiles.length > 0) {
-            for (let i = 0; i < data.otherProfiles.length; i++) {
-                const element = data.otherProfiles[i]
-                let profileErrorObj = {}
-
-                if (!element.title || isEmpty(element.title)) profileErrorObj.title = "Title is required."
-                if (!element.link || isEmpty(element.link)) profileErrorObj.link = "Link is required."
-
-                if (Object.keys(profileErrorObj).length > 0) otherProfileErrors.push(profileErrorObj)
-            }
-        }
-    }
-
-    if (otherProfileErrors.length > 0) errors.otherProfiles = otherProfileErrors
-
-    return {
-        errors,
-        isValid: Object.keys(errors).length === 0
-    }
-}
-
 /* Add work */
 const addWork = data => {
     let errors = {}
@@ -126,11 +57,39 @@ const addWork = data => {
     }
 }
 
+/* Add education */
+const addEducation = data => {
+    let errors = {}
+
+    if (!data.school || isEmpty(data.school)) errors.school = "School is required."
+    if (!data.department || isEmpty(data.department)) errors.department = "Department is required."
+    if (!data.passingYear || isEmpty(data.passingYear)) errors.passingYear = "Passing year is required."
+
+    return {
+        errors,
+        isValid: Object.keys(errors).length === 0
+    }
+}
+
+/* Add social */
+const addSocial = data => {
+    let errors = {}
+
+    if (!data.title || isEmpty(data.title)) errors.title = "Title is required."
+    if (!data.link || isEmpty(data.link)) errors.link = "Link is required."
+
+    return {
+        errors,
+        isValid: Object.keys(errors).length === 0
+    }
+}
+
 
 module.exports = {
     login,
     register,
     reset,
-    profileUpdate,
-    addWork
+    addWork,
+    addEducation,
+    addSocial
 }
