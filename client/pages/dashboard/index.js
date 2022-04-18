@@ -1,24 +1,31 @@
 
 
 import React, { useCallback, useEffect, useState } from "react"
-import { Plus, Trash2 } from "react-feather"
+import { Plus, Settings, Trash2 } from "react-feather"
 import { withAuth } from "../../hook/with-auth"
 import { dateTodate } from "../../utils/helper"
 import { NetworkError } from "../../components/network-error"
 import { DashboardPreloader } from "../../components/preloader"
 import { DashboardLayout } from "../../components/dashboard-layout"
 import { DashboardCover } from "../../components/dashboard/cover"
-import { Modal } from "../../components/modal"
-import { WorkForm } from "../../components/form/work"
 import { EducationForm } from "../../components/form/education"
+import { CircleIconButton } from "../../components/button"
 import { SocialForm } from "../../components/form/social"
-import { Me } from "../api"
-import { CircleIconButton, DangerButton } from "../../components/button"
+import { WorkForm } from "../../components/form/work"
+import { Modal } from "../../components/modal"
+import { CustomDisclouser } from "../../components/disclosure"
+import { UsernameForm } from "../../components/form/username"
+import { ProfileForm } from "../../components/form/profile"
+import { Toastify } from "../../components/toastify"
+import { Me, UpdateProfileInfo, UpdateUsername } from "../api"
 
 const index = () => {
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
+    const [profile, setProfile] = useState({ show: false })
+    const [isProfileUpdating, setProfileUpdating] = useState(false)
+    const [changeUsername, setChangeUsername] = useState(false)
     const [work, setWork] = useState({ show: false, loading: false })
     const [education, setEducation] = useState({ show: false, loading: false })
     const [social, setSocial] = useState({ show: false, loading: false })
@@ -26,6 +33,8 @@ const index = () => {
     /* fetch data */
     const fetchData = useCallback(async () => {
         try {
+            setData(null)
+            setLoading(true)
             const response = await Me()
             if (response && response.status === 200) {
                 setData(response.data.data)
@@ -46,13 +55,62 @@ const index = () => {
         fetchData()
     }, [fetchData])
 
+    /* Handle profile update */
+    const handleProfileUpdate = async (data) => {
+        try {
+            setProfileUpdating(true)
+            const response = await UpdateProfileInfo(data)
+            if (response && response.status === 201) {
+                fetchData()
+                setProfile({ show: false })
+                Toastify.Success(response.data.message)
+            }
+
+            setProfileUpdating(false)
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Handle username update */
+    const handleUsernameUpdate = async (data) => {
+        try {
+            setChangeUsername(true)
+            const response = await UpdateUsername(data)
+            if (response && response.status === 201) {
+                fetchData()
+                setChangeUsername(false)
+                setProfile({ show: false })
+                Toastify.Success(response.data.message)
+            }
+
+            setChangeUsername(false)
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
     return (
         <div>
             <DashboardLayout>
-
                 {isLoading && !serverError && !data ? <DashboardPreloader /> : null}
                 {!isLoading && !data && serverError ? <NetworkError /> : null}
-
                 {!isLoading && !serverError && data ?
                     <>
                         <DashboardCover text={data.name} />
@@ -64,8 +122,13 @@ const index = () => {
 
                             {/* Personal info */}
                             <div className="rounded-md shadow-lg bg-white min-h-[350px]">
-                                <div className="border-b p-4">
-                                    <p className="text-sm font-medium">Personal info.</p>
+                                <div className="border-b w-full inline-flex justify-between p-3">
+                                    <p className="text-sm font-medium mt-1">Profile info.</p>
+                                    <button
+                                        onClick={() => setProfile({ show: true, loading: false })}
+                                        className="p-1 bg-gray-50 rounded-full text-gray-600 transition-all hover:bg-gray-100 hover:text-black">
+                                        <Settings size={18} />
+                                    </button>
                                 </div>
                                 <div className="p-3">
                                     <div className="flex mb-2">
@@ -194,6 +257,36 @@ const index = () => {
                     : null
                 }
             </DashboardLayout>
+
+            {/* Profile modal */}
+            <Modal
+                title="Change profile"
+                show={profile.show}
+                onHide={() => setProfile({ ...work, show: false })}
+            >
+                <CustomDisclouser
+                    items={[
+                        {
+                            title: "Edit username",
+                            body:
+                                <UsernameForm
+                                    data={data}
+                                    loading={changeUsername}
+                                    onSubmit={data => handleUsernameUpdate(data)}
+                                />
+                        },
+                        {
+                            title: "Edit personal info.",
+                            body:
+                                <ProfileForm
+                                    data={data}
+                                    loading={isProfileUpdating}
+                                    onSubmit={data => handleProfileUpdate(data)}
+                                />
+                        }
+                    ]}
+                />
+            </Modal>
 
             {/* Work creation */}
             <Modal

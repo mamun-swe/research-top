@@ -1,5 +1,5 @@
 
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { PrimaryButton } from "../button"
 import { TextField, TextAreaField } from "../input-field"
@@ -7,6 +7,12 @@ import { ReactCountrySelectComponent } from "react-country-select-component"
 
 export const ProfileForm = (props) => {
     const { control, handleSubmit, formState: { errors }, setValue, setError, clearErrors } = useForm()
+
+    useEffect(() => {
+        if (props.data && props.data.country) {
+            setValue('country', props.data.country)
+        }
+    }, [])
 
     const onSubmit = data => {
         if (!data.country) {
@@ -59,7 +65,14 @@ export const ProfileForm = (props) => {
                         label='Country'
                         placeholder={'Select country'}
                         borderRadius={6}
-                        defaultvalue={null}
+                        defaultvalue={
+                            props?.data?.country ?
+                                {
+                                    label: props.data.country,
+                                    value: props.data.country
+                                }
+                                : null
+                        }
                         onChange={(event) => {
                             if (event && event.value) {
                                 setValue('country', event.value)

@@ -13,7 +13,7 @@ export const NetworkError = () => {
                 className="mx-auto"
             />
 
-            <p className="text-md font-medium text-indigo-500 mt-4">Network error.</p>
+            <p className="text-md font-medium text-primary mt-4">Network error.</p>
         </div>
     )
 }

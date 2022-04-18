@@ -1,17 +1,7 @@
 
 
 import { publicRequest, privateRequest } from "./axios.config"
-import axios from "axios"
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY
-
-const accessToken = () => {
-    if (typeof window !== 'undefined') {
-        return localStorage.getItem("token")
-    } else {
-        return null
-    }
-}
 
 /* Public researcher list */
 export const ResearcherList = async (page, limit) => {
@@ -44,6 +34,16 @@ export const Registration = async (data) => {
 /* Me */
 export const Me = async () => {
     return await privateRequest.get(`${BASE_URL}/researcher/profile/me`)
+}
+
+/* Update profile info */
+export const UpdateProfileInfo = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update`, data)
+}
+
+/* Update username */
+export const UpdateUsername = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
 }
 
 /* Publications */

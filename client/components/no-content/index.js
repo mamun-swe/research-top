@@ -12,7 +12,7 @@ export const NoContent = (props) => {
                 className="mx-auto"
             />
 
-            <p className="text-md font-medium text-indigo-500 mt-4">{props.message}</p>
+            <p className="text-md font-medium text-primary mt-4">{props.message}</p>
         </div>
     )
 }
